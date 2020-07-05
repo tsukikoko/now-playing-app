@@ -1,20 +1,27 @@
 <template>
   <div class="container">
-    <h2>{{ playList.name }}</h2>
+    <h2>{{ playListName }}</h2>
     <ul>
-      <li>
-        <span
-          >{{ playList.tracks.items[0].track.album.artists[0].name }} /</span
-        >
-        {{ playList.tracks.items[0].track.name }}
+      <li v-for="(value, index) in playList" :key="index">
+        <dl>
+          <dt>track_id</dt>
+          <dd>{{ playList[index].track_id }}</dd>
+          <dt>曲名</dt>
+          <dd>{{ playList[index].song_name }}</dd>
+          <dt>アーティスト名</dt>
+          <dd>{{ playList[index].artist_name }}</dd>
+        </dl>
+
+        song_name {{ playList[index].song_name }}
       </li>
     </ul>
   </div>
 </template>
 
 <style>
-#search_box {
-  margin-bottom: 15px;
+ul {
+  list-style: none;
+  text-align: left;
 }
 </style>
 
@@ -23,24 +30,40 @@ import axios from "axios";
 export default {
   data() {
     return {
+      playListName: "",
+      index: 0,
+      data: [],
       playList: [],
-      tracks: [],
+      song: [],
     };
   },
   created: function() {
+    let endpoint =
+      "https://api.spotify.com/v1/playlists/3203elB6L86rNk3TMqcTjU";
+    let access_token =
+      "BQAqYJQccXlu7IH_ElGCwlGHqeacYl069yiPu8lDSV0XQfvp-jJ6ElgRMo0He3I57CkVuhg4MP4l4wbxs7EpTTvXnMWs38wQ5OQYWeCYUaNZ5PmDYjGW2Px-NKnNsDjZtG_lJy3WJ6ekP9bkWvPdlefkkgzA98iqzBeAAiIcVLID7013qEi2bafLbArEOm_BcxbSF37AUXbAyyoYfrr0mlZhRfvbXLS9J_0oMcbTE1setgwJfq-9G2mi3Pj4L0HaVpUuCUkWbSY23DXXqBpkQZyckY1bZXYq3aab";
     axios
-      .get(
-        "https://api.spotify.com/v1/playlists/3203elB6L86rNk3TMqcTjU?offset=0&limit=1",
-        {
-          headers: {
-            Authorization:
-              "Bearer " +
-              "BQBvwZvdqwvbYfhsvW61LGGG1WYyOsf45zZPLEhcQtIAV2UFYIDvFfQtlRZF6038j-BKr8XihaEPRu_hhzMtztlbZvYjZMf0G2tx5alRxtudhNKn4n8Wow44_DAwqNKQX_OHA0En7KkIsiqrP84gdce9VIXr3zygF17ju26sWPjJe5yOLAIpLPe3Hg_RohrCDiGBuhxL3_kXQSnEa-Tw5TCUxZ4iHaSKgwJ6AjcPYiPwodBZM1HjqRqbCHzo8f4OeIpJmjFv8_tGSVM1pc1mJxluaag_lkqeZMK_",
-          },
-        }
-      )
+      .get(endpoint, {
+        headers: {
+          Authorization: "Bearer " + access_token,
+        },
+      })
       .then((response) => {
-        this.playList = response.data;
+        const length = response.data.tracks.items.length; // 曲数
+        this.data = response.data.tracks;
+        this.playListName = response.data.name;
+
+        for (let i = 0; i < length; i++) {
+          this.song = {
+            track_id: this.data.items[i].track.id,
+            song_name: this.data.items[i].track.name,
+            track_img_url: this.data.items[i].track.album.images[0].url,
+            artist_name: this.data.items[i].track.artists[0].name,
+            song_uri: this.data.items[i].track.href,
+          };
+          this.playList.id;
+          this.playList = this.playList.concat(this.song);
+        }
       })
       .catch((error) => console.log(error));
   },
