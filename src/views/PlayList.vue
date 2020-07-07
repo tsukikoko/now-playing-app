@@ -51,7 +51,6 @@ export default {
         const length = response.data.tracks.items.length; // 曲数
         this.data = response.data.tracks;
         this.playListName = response.data.name;
-
         for (let i = 0; i < length; i++) {
           this.song = {
             track_id: this.data.items[i].track.id,
