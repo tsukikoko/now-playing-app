@@ -29,10 +29,7 @@ export default {
       "https://api.spotify.com/v1/me/player/currently-playing?market=JP";
     let data = {
       headers: {
-        Authorization:
-          "Bearer" +
-          " " +
-          "BQB5SxKGaRqqwqZ5YQriGMeKMBcoOEExbEGaSXOnMERGpaYgkc_U1Ed551OKduMZnPN0EDKVdPIzcfCPS0ejyGFyczr-CG2BjfKgywaqYcrWGADIgmYOi1Z6hQG2Ih080aWnAiftt8eKRSXhmODAAGW1BPT0Z5UvFFD9BDk-",
+        Authorization: "Bearer" + " " + this.access_token,
       },
       data: {},
     };
@@ -40,8 +37,6 @@ export default {
       .get(endpoint, data)
       .then((res) => {
         this.nowPlaying = res.data;
-        console.log("aaa");
-        console.log(res.data);
       })
       .catch((err) => {
         console.error(err);

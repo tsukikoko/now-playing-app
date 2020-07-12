@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <v-app dark>
     <h2>{{ playListName }}</h2>
     <ul>
       <li v-for="(value, index) in playList" :key="index">
@@ -14,7 +14,7 @@
         song_name {{ playList[index].song_name }}
       </li>
     </ul>
-  </div>
+  </v-app>
 </template>
 
 <style>

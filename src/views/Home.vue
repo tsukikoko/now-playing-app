@@ -1,20 +1,23 @@
 <template>
-  <div class="nowplaying">
+  <div class="container">
     <button @click="spotifyLogin">認証</button>
-    <router-link
-      :to="{
-        name: 'PlayList',
-        params: { access_token: this.routeParams.access_token },
-      }"
-      >プレイリスト</router-link
-    >
-    <router-link
-      :to="{
-        name: 'NowPlaying',
-        params: { access_token: this.routeParams.access_token },
-      }"
-      >再生中の曲</router-link
-    >
+
+    <div v-if="this.routeParams.access_token">
+      <router-link
+        :to="{
+          name: 'PlayList',
+          params: { access_token: this.routeParams.access_token },
+        }"
+        >プレイリスト</router-link
+      >
+      <router-link
+        :to="{
+          name: 'NowPlaying',
+          params: { access_token: this.routeParams.access_token },
+        }"
+        >再生中の曲</router-link
+      >
+    </div>
   </div>
 </template>
 
