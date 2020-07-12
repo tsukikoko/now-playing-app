@@ -29,6 +29,7 @@ import axios from "axios";
 export default {
   data() {
     return {
+      href: "",
       playListName: "",
       index: 0,
       data: [],
@@ -36,15 +37,17 @@ export default {
       song: [],
     };
   },
+  props: {
+    routeParams: Object,
+    access_token: String,
+  },
   created: function() {
     let endpoint =
       "https://api.spotify.com/v1/playlists/3203elB6L86rNk3TMqcTjU";
-    let access_token =
-      "BQD5jcdW1qwsrlrRWpPxTaulJ1FWoEHHSw3An9VNTYiZjkPJCymQSVImwMybTRahLxVpoVn9ILrBlOKGlOEdVJ2cGuTa-OEHFbUBvs7aLtM1qB5sD_KFs2GkKdKS9_Rg5e_9LaztfK-g-Q6fxRQEDtjC4R_RpngcryRdL2aA";
     axios
       .get(endpoint, {
         headers: {
-          Authorization: "Bearer " + access_token,
+          Authorization: "Bearer " + this.access_token,
         },
       })
       .then((response) => {
