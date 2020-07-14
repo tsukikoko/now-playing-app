@@ -1,16 +1,19 @@
 <template>
   <v-app>
-    <v-content>
+    <Header />
+    <v-main>
       <router-view></router-view>
-    </v-content>
+    </v-main>
   </v-app>
 </template>
 
 <script>
+import Header from "./components/Header";
 export default {
   name: "App",
 
-  components: {},
-  data: () => ({}),
+  components: {
+    Header,
+  },
 };
 </script>
