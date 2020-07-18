@@ -1,5 +1,5 @@
 <template>
-  <v-app dark>
+  <v-app>
     <h2>{{ playListName }}</h2>
     <ul>
       <li v-for="(value, index) in playList" :key="index">
@@ -31,7 +31,6 @@ export default {
     return {
       href: "",
       playListName: "",
-      index: 0,
       data: [],
       playList: [],
       song: [],
@@ -42,6 +41,7 @@ export default {
     access_token: String,
   },
   created: function() {
+    console.log(this.access_token);
     let endpoint =
       "https://api.spotify.com/v1/playlists/3203elB6L86rNk3TMqcTjU";
     axios
