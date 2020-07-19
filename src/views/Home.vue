@@ -14,7 +14,7 @@
           <button
             type="button"
             @click="spotifyLogin"
-            class="white--text v-btn v-btn--block v-btn--rounded theme--dark elevation-2 v-size--x-large light-green darken-1"
+            class="btn white--text theme--dark light-green darken-1"
             size="x-large"
           >認証</button>
         </div>
@@ -23,7 +23,7 @@
 
     <div class="frame">
       <v-row v-if="this.routeParams.access_token">
-        <v-col cols="12" v-if="nowPlaying == null">
+        <v-col cols="12" lg="4" xl="4" md="4" sm="8" v-if="nowPlaying == null" class="mx-auto">
           <a
             href="NowPlaying"
             @click.prevent="showNowPlaying"
@@ -34,7 +34,7 @@
       </v-row>
 
       <v-row v-if="nowPlaying != null">
-        <v-col cols="12">
+        <v-col cols="12" lg="4" xl="4" md="4" sm="8" class="mx-auto">
           <div>
             <h3>今再生中の曲</h3>
             <p>
@@ -57,7 +57,7 @@
       </v-row>
 
       <v-row v-if="this.routeParams.access_token">
-        <v-col cols="12" lg="6" xl="6" md="6" sm="12">
+        <v-col cols="12" lg="4" xl="4" md="4" sm="8" class="mx-auto">
           <p>
             オススメの
             <router-link
@@ -74,6 +74,14 @@
   </v-container>
 </template>
 <style scoped>
+.btn {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 32px;
+  box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2),
+    0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  padding: 2% 0;
+}
 .frame {
   margin-top: 5%;
 }
@@ -101,7 +109,7 @@ export default {
       let endpoint = "https://accounts.spotify.com/authorize";
       let response_type = "token";
       let client_id = "ba2cc637fec84f49ba312c17803f3876";
-      let redirect_uri = "https://now-playing-app.netlify.app";
+      let redirect_uri = "https://now-playing-app.netlify.app/";
       let scope = "user-read-currently-playing";
       let uri =
         endpoint +
