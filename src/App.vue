@@ -7,10 +7,11 @@
   </v-app>
 </template>
 
-<style>
+<style scss>
 * {
   color: #5d4037;
 }
+
 img {
   max-width: 100%;
 }

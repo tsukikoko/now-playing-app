@@ -1,26 +1,52 @@
 <template>
   <v-app>
-    <h2>{{ playListName }}</h2>
-    <ul>
-      <li v-for="(value, index) in playList" :key="index">
-        <dl>
-          <dt>track_id</dt>
-          <dd>{{ playList[index].track_id }}</dd>
-          <dt>曲名</dt>
-          <dd>{{ playList[index].song_name }}</dd>
-          <dt>アーティスト名</dt>
-          <dd>{{ playList[index].artist_name }}</dd>
-        </dl>
-        song_name {{ playList[index].song_name }}
-      </li>
-    </ul>
+    <h2 class="my-5 text-center">{{ playListName }}</h2>
+    <div class="play-list">
+      <ul>
+        <li v-for="(value, index) in playList" :key="index" class="mt-2 py-1">
+          <a
+            v-bind:href="playList[index].song_uri"
+            target="_blank"
+            class="orange--text text--darken-1"
+          >
+            <div class="play-list__item">
+              <div class="play-list__tmb">
+                <img :src="playList[index].track_img_url" :alt="playList[index].song_name" />
+              </div>
+              <dl>
+                <dd>{{ playList[index].artist_name }} / {{ playList[index].song_name }}</dd>
+                <dd></dd>
+                <dd>人気度 {{ playList[index].song_popularity }}</dd>
+              </dl>
+            </div>
+          </a>
+        </li>
+      </ul>
+    </div>
   </v-app>
 </template>
 
-<style>
+<style lang="scss" scoped>
 ul {
   list-style: none;
   text-align: left;
+  padding: 0 2%;
+  > li {
+    max-width: 100%;
+  }
+}
+
+.play-list {
+  max-width: 1200px;
+  margin: auto;
+  &__item {
+    display: flex;
+  }
+  &__tmb {
+    width: 40%;
+    max-width: 90px;
+    margin-right: 10px;
+  }
 }
 </style>
 
@@ -33,24 +59,23 @@ export default {
       playListName: "",
       data: [],
       playList: [],
-      song: [],
+      song: []
     };
   },
   props: {
     routeParams: Object,
-    access_token: String,
+    access_token: String
   },
   created: function() {
-    console.log(this.access_token);
     let endpoint =
       "https://api.spotify.com/v1/playlists/3203elB6L86rNk3TMqcTjU";
     axios
       .get(endpoint, {
         headers: {
-          Authorization: "Bearer " + this.access_token,
-        },
+          Authorization: "Bearer " + this.access_token
+        }
       })
-      .then((response) => {
+      .then(response => {
         const length = response.data.tracks.items.length; // 曲数
         this.data = response.data.tracks;
         this.playListName = response.data.name;
@@ -60,13 +85,14 @@ export default {
             song_name: this.data.items[i].track.name,
             track_img_url: this.data.items[i].track.album.images[0].url,
             artist_name: this.data.items[i].track.artists[0].name,
-            song_uri: this.data.items[i].track.href,
+            song_uri: this.data.items[i].track.external_urls.spotify,
+            song_popularity: this.data.items[i].track.popularity
           };
           this.playList.id;
           this.playList = this.playList.concat(this.song);
         }
       })
-      .catch((error) => console.log(error));
-  },
+      .catch(error => console.log(error));
+  }
 };
 </script>
