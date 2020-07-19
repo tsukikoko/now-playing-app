@@ -109,7 +109,7 @@ export default {
       let endpoint = "https://accounts.spotify.com/authorize";
       let response_type = "token";
       let client_id = "ba2cc637fec84f49ba312c17803f3876";
-      let redirect_uri = "https://now-playing-app.netlify.app/";
+      let redirect_uri = "https://spotify-now-playing.netlify.app/";
       let scope = "user-read-currently-playing";
       let uri =
         endpoint +
