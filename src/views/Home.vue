@@ -24,12 +24,13 @@
     <div class="frame">
       <v-row v-if="this.routeParams.access_token">
         <v-col cols="12" lg="4" xl="4" md="4" sm="8" v-if="nowPlaying == null" class="mx-auto">
-          <a
-            href="NowPlaying"
-            @click.prevent="showNowPlaying"
+          <router-link
+            :to="{
+                name: 'NowPlaying',
+                query: { access_token: this.routeParams.access_token },
+              }"
             class="orange--text text--darken-1"
-          >再生中の曲の情報</a>
-          を確認する
+          >再生中の曲</router-link>を確認する
         </v-col>
       </v-row>
 

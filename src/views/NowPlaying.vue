@@ -23,32 +23,32 @@ import axios from "axios";
 export default {
   data: function() {
     return {
-      nowPlaying: null,
+      nowPlaying: null
     };
   },
   props: {
     routeParams: Object,
-    access_token: String,
+    access_token: String
   },
   created: function() {
-    console.log(this.access_token);
+    console.log(this.routeParams.access_token);
     let endpoint =
       "https://api.spotify.com/v1/me/player/currently-playing?market=JP";
     let data = {
       headers: {
-        Authorization: "Bearer" + " " + this.access_token,
+        Authorization: "Bearer" + " " + this.routeParams.access_token
       },
-      data: {},
+      data: {}
     };
     axios
       .get(endpoint, data)
-      .then((res) => {
+      .then(res => {
         console.log(this.access_token);
         this.nowPlaying = res.data;
       })
-      .catch((err) => {
+      .catch(err => {
         console.error(err);
       });
-  },
+  }
 };
 </script>
